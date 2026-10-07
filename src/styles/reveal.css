@@ -1,0 +1,133 @@
+/* Scroll-reveal animation system — premium, subtle, performance-friendly.
+   Uses only opacity/transform/filter/clip-path so nothing shifts layout. */
+
+:root {
+  --reveal-duration: 900ms;
+  --reveal-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal {
+  --reveal-delay: 0ms;
+  opacity: 0;
+  transition:
+    opacity var(--reveal-duration) var(--reveal-ease),
+    transform var(--reveal-duration) var(--reveal-ease),
+    filter var(--reveal-duration) var(--reveal-ease);
+  transition-delay: var(--reveal-delay);
+  will-change: opacity, transform, filter;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* Fade-up — the workhorse reveal for cards, paragraphs, rows */
+.reveal-up {
+  transform: translateY(30px);
+}
+
+/* Subtle blur-to-sharp — reserved for standout elements */
+.reveal-blur {
+  transform: translateY(16px);
+  filter: blur(12px);
+}
+
+/* Smooth scale-in — panels, banners, containers */
+.reveal-scale {
+  transform: scale(0.94);
+}
+
+/* Plain fade, no movement — small inline elements (badges, labels) */
+.reveal-fade {
+  transform: none;
+}
+
+/* Side slides — for split/asymmetric layouts */
+.reveal-left {
+  transform: translateX(-36px);
+}
+.reveal-right {
+  transform: translateX(36px);
+}
+
+/* Text reveal — masks the line and slides it up from below, per child.
+   Usage: <Reveal as="h2" variant="text"><span>Line one</span></Reveal> */
+.reveal-text {
+  overflow: hidden;
+  display: block;
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+.reveal-text > * {
+  display: block;
+  transform: translateY(112%);
+  opacity: 0;
+  transition:
+    transform var(--reveal-duration) var(--reveal-ease),
+    opacity calc(var(--reveal-duration) * 0.8) var(--reveal-ease);
+  transition-delay: var(--reveal-delay);
+  will-change: transform, opacity;
+}
+.reveal-text.is-visible > * {
+  transform: translateY(0);
+  opacity: 1;
+}
+.reveal-text > *:nth-child(2) {
+  transition-delay: calc(var(--reveal-delay) + 90ms);
+}
+.reveal-text > *:nth-child(3) {
+  transition-delay: calc(var(--reveal-delay) + 180ms);
+}
+
+/* Clip/mask reveal — for images. The wrapper stays static (it just clips);
+   the image inside unmasks upward while gently settling from a slight zoom.
+   Usage: <Reveal variant="clip"><img .../></Reveal> */
+.reveal-clip {
+  overflow: hidden;
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+.reveal-clip > img,
+.reveal-clip .reveal-clip-target {
+  clip-path: inset(0 0 100% 0);
+  transform: scale(1.12);
+  transition:
+    clip-path calc(var(--reveal-duration) * 1.15) var(--reveal-ease),
+    transform calc(var(--reveal-duration) * 1.3) var(--reveal-ease);
+  transition-delay: var(--reveal-delay);
+  will-change: clip-path, transform;
+}
+.reveal-clip.is-visible > img,
+.reveal-clip.is-visible .reveal-clip-target {
+  clip-path: inset(0 0 0% 0);
+  transform: scale(1);
+}
+
+/* Respect reduced-motion: everything appears instantly, no motion at all */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-text > *,
+  .reveal-clip > img,
+  .reveal-clip .reveal-clip-target {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    clip-path: none !important;
+  }
+}
+
+/* Slightly gentler travel distance on small screens */
+@media (max-width: 640px) {
+  .reveal-up {
+    transform: translateY(18px);
+  }
+  .reveal-blur {
+    transform: translateY(10px);
+    filter: blur(7px);
+  }
+}

@@ -1,0 +1,157 @@
+.nx-coll-wrap {
+  max-width: 1350px;
+  /* margin: 0 auto 60px; */
+  padding: 110px 14px;
+  /* padding: 0 32px; */
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.nx-coll-heading {
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -1px;
+  padding: 0px 65px;
+  color: var(--nx-ink, #151222);
+  margin: 0 0 28px;
+}
+
+.nx-coll-heading .nx-accent {
+  color: var(--nx-purple-700, #6f4fd1);
+}
+
+/* Purple wave banner that peeks out behind the top of the cards */
+.nx-coll-banner {
+  background: linear-gradient(100deg, var(--nx-purple-700, #6f4fd1) 0%, var(--nx-purple-500, #8f77e0) 55%, var(--nx-purple-300, #a996ea) 100%);
+  border-radius: 28px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+.nx-coll-banner::after {
+  content: "";
+  position: absolute;
+  top: -60%;
+  right: -10%;
+  width: 60%;
+  height: 220%;
+  background: rgba(255, 255, 255, 0.08);
+  transform: rotate(18deg);
+  pointer-events: none;
+}
+
+.nx-coll-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+  margin-top: -84px;
+  padding: 20px 65px;
+}
+
+.nx-coll-card {
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 18px 34px rgba(30, 20, 60, 0.18);
+}
+
+.nx-coll-media {
+  position: relative;
+  height: 260px;
+  overflow: hidden;
+}
+
+.nx-coll-media img,
+.nx-coll-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.nx-coll-zoom {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--nx-ink, #151222);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.nx-coll-zoom:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.nx-coll-info {
+  padding: 18px 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.nx-coll-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--nx-ink, #151222);
+}
+
+.nx-coll-icon {
+  color: var(--nx-purple-700, #6f4fd1);
+  display: flex;
+}
+
+.nx-coll-cta {
+  background: var(--nx-purple-500, #8f77e0);
+  color: #fff;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.purple-text{
+  color:#8f77e0;
+}
+
+.nx-coll-cta:focus-visible {
+  outline: 2px solid var(--nx-purple-700, #6f4fd1);
+  outline-offset: 2px;
+}
+
+@media (max-width: 860px) {
+  .nx-coll-heading {
+    font-size: 32px;
+    padding: 0 20px;
+  }
+  .nx-coll-grid {
+    grid-template-columns: 1fr;
+    transform: translateY(20px);
+    padding: 20px;
+  }
+  .nx-coll-banner {
+    padding-top: 28px;
+  }
+}
